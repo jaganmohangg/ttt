@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{%load blog_tags%}
+{%load staticfiles%}
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{%static "css/test1.css" %}">
+    <meta charset="utf-8">
+    <title>{%block title_block%}{%endblock%}</title>
+  </head>
+  <body>
+    <div class="content">
+      {%block content%}{%endblock%}
+    </div>
+    <div class='sidebar'>
+      <h2>JAGA's BLOG</h2>
+
+      <p>Total number of posts published upto today: <span id='pcount'>{%my_tag%}</span> </p></p>
+      <h3>Latest posts</h3>{%show_latest_posts   4%}<!--here 4 is argument passed to method show_latest_posts in blog_tags.py file -->
+      <!--here show_latest_posts is a method name in blog_tags.py file   and show_latest_posts is replaced by template responce -->
+      <h3>Most commented post:</h3>
+      {% get_most_commented_posts as most_commented_posts%}
+
+        <ul>
+          {%for post in most_commented_posts%}
+          <li><a href="{{post.get_absolute_url}}">{{post.title}}</a></li>
+          {%endfor%}
+        </ul>
+    </div>
+  </body>
+</html>
